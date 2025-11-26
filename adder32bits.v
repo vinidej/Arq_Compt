@@ -5,10 +5,11 @@ module adder32bits(
     input [31:0] b,
     input       cin,
     output      carry_out,
-    output      carry30,
+    output      carry30, //Esse é o penúltimo carry, será usada para fazer uma XOR com o último carry. O nome se refere ao carry da posição 30.
     output [31:0] s
 );
-    wire[30:0] cout;
+    wire[30:0] cout; //31 wire de carry.
+    //Blocos de somas de 1 bit com o cout sendo a entrada cin do próximo. 32 ao total em cadeia. As saída vão de 0 a 31 em ordem, assim como o numero "a" e o "b".
     full_adder_1bit fa0( .s(s[0]),      .cout(cout[0]),         .a(a[0]),     .b(b[0]),     .cin(cin)           );
 
     full_adder_1bit fa1( .s(s[1]),      .cout(cout[1]),         .a(a[1]),     .b(b[1]),     .cin(cout[0])       );
@@ -69,8 +70,8 @@ module adder32bits(
 
     full_adder_1bit fa29( .s(s[29]),     .cout(cout[29]),        .a(a[29]),     .b(b[29]),     .cin(cout[28])       );
 
-    full_adder_1bit fa30( .s(s[30]),     .cout(carry30),        .a(a[30]),     .b(b[30]),     .cin(cout[29])       );
-
+    full_adder_1bit fa30( .s(s[30]),     .cout(carry30),        .a(a[30]),     .b(b[30]),     .cin(cout[29])       ); 
+//O penúltimo carry é guardado em carry30, e o último em carry_out.
     full_adder_1bit fa31( .s(s[31]),     .cout(carry_out),        .a(a[31]),     .b(b[31]),     .cin(carry30)       );
 
 
