@@ -5,11 +5,7 @@ module full_adder_1bit(
     input b,
     input cin
 );
-    // fiz a descricao dataflow (mais simples)
-    //assign {cout,s} = a+b+cin;
-
-    // faz voce a descricao estrutural :)
-    
+    //Para fazer esse modulo fiz a tabela verdade de um ADD, converti para mapa K e extrai o circuito simplificado.
     wire nA,nB,nC,nCin,a1,a2,a3,a4; 
 
     not n1 (nA,a);
