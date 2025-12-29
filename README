@@ -1,17 +1,1 @@
-Implementação de uma ULA de um processador MIPS como trabalho 1 de arquitetura de computadores.
-
-Modulos instanciados, e somador de 32 bits implementado de forma estrutural. (OK)
-DÚVIDAS:
-O modulo alu_32.v tem que ser especificamente daquele jeito ou pode ser mudado? Pq
-pra fazer as atribuições dentro do always eu preciso que meus outputs sejam do tipo
-REG e não WIRE.
-
-Como exatamente funciona o complemento de dois para fazer o SUBTRACT usando o estrutural
-de ADD?
-
-0000 AND
-0001 OR
-0010 ADD
-0110 SUB
-0111 SLW(COMPARAÇÃO)
-1100 NOR
+Segundo projeto consiste em traduzir um código C para Assembly.
