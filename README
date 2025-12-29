@@ -1,2 +1,3 @@
 Segundo projeto consiste em traduzir um código C para Assembly.
 O código é simples e é uma função recursiva que recebe um inteiro N e retorna o somatório de 1 até N. 
+Posso adicionar um desvio condicional no projeto, para ganhar mais nota. Primeiro vou traduzir esse codigo simples e caso concluido adiciono um desvio condicional para complicar mais.
