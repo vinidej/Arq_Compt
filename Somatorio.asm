@@ -1,3 +1,6 @@
+#1) O programa implementa o cálculo do somatório de um número N e ao final imprime todos os números de N até 0. 
+#É simples mas contém desvio condicional, repetição, funções, recursividade e sequencial. 5 dos 6 pedidos no trabalho.
+
 .text 
 .globl main #Defino que o main é um escopo global
 
@@ -9,12 +12,14 @@ main:
 	move $a0, $v0 #Após retornar do Jump and Link ele move o valor retornada da função que está guardado em $v0 para $a0
 	li $v0, 1 #Apenas para poder gravar o valor 1(significa "Imprima um inteiro") no $v0 sem perder o dado que seria sobreescrito
 	syscall #chamo o sistema, ele imprime o valor que está em $a0
+	move $t0, $a0 #movo para registrador temporario, explicarei abaixo o motivo
+	li $v0, 11	#Gravo em v0 o codigo de impressão de um caracter
+	li $a0, 10	#Gravo em a0 o codigo correspondente a o \n na tabela ascii
+	syscall		#Sistema imprime o que está em a0 e como o cdoigo em v0 é para caracter ele imprime o codigo da tabela ascii
+	#Por esse motivo que eu passo o valor de a0 para t0, para não ser sobreescrito
+	jal imprimir_numeros	#Chamo a função que implementa um for para imprimir todos os números de N até 0	
 	li $v0, 10 #Gravo o valor 10(Que significa "Encerre o programa") no $v0
 	syscall #chamo o sistema onde ver o valor 10 e encerra o programa
-
-#Curiosidade: Enquanto fazia, o sistema imprimia na saída alguns valores "loucos" e após sair do Main voltava para o somatorio
-#Foi então que eu percebi que faltava o encerramento do programa, o que não é necessário em C a linguagem que foi traduzida
-#Uma pequena curiosidade de uma experiência simples mas para um programador inciante em assembly achei interessante.
 
 somatorio:
 	beq $a0, 1, retorno #"Brench if Equal", se o valor no $a0 for == 1 então pule para retorno
@@ -44,3 +49,29 @@ retorno:
 	li $v0, 1 #Grava 1 no $v0. Dessa vez não é para imprimir um inteiro, é o valor 1 de fato que retorna no caso base
 	jr $ra #"Jump Register" ele pula para o endereço de memória daquele registrador e continua
 	
+	
+retorno_imprimir_numeros:
+	jr $ra	#Apenas pula para endereço salvo de retorno em $ra
+
+imprimir_numeros:
+	bltz $t0, retorno_imprimir_numeros #Se t0 for menor que 0, pule para essa função
+	li $v0, 1	#grava em v0 o codigo referente a impressão de um inteiro
+	move $a0, $t0	#move de t0 para a0 pois o sistema so lê do a0
+	syscall		#Chama o sistema
+	li $v0, 11	#Mesma coisa para imprimir o \n
+	li $a0, 10	#Escreve o codigo de \n na tabela ascii em a0
+	syscall		#imprime o \n
+	addi $t0, $t0, -1	#Soma o valor em t0 com -1 para imprimir o proximo
+	j imprimir_numeros #Pula para inicio da função novamente. Note que não precisa de link pois não preciso guardar nada da ultima iteração
+	
+	
+#2) O programa já era bem simples antes no C, em Assembly Mips só notei a otimização de que a linguagem ta conversando com a máquina
+#mais direto do que a linguagem C, então é mais rápido. Mas fora isso eu não notei muita coisa pq o programa já é naturalmente bem simples
+
+#Algo interessante de se notar foi que um laço for, e uma função recursiva são basicamente a mesma coisa com o diferencial de que
+#a recursiva salva as informações que ela precisa na pilha, como endereço do retorno e valor naquele momento.
+#O for faz a mesma coisa, mas não salva nada da ultima iteração. Algo besta mas que só notei agora no assembly
+
+#Curiosidade: Enquanto fazia, o sistema imprimia na saída alguns valores "loucos" e após sair do Main voltava para o somatorio
+#Foi então que eu percebi que faltava o encerramento do programa, o que não é necessário em C a linguagem que foi traduzida
+#Uma pequena curiosidade de uma experiência simples mas para um programador inciante em assembly achei interessante.
