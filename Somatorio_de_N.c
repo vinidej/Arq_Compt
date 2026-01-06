@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <locale.h>
 
 int somatorio_N(int N){
     if(N == 1) return 1;
@@ -7,9 +6,9 @@ int somatorio_N(int N){
 }
 
 int main(){
-    setlocale(LC_ALL, "");
     int N;
-    printf("Digite um número inteiro:\n");
+    printf("Digite um numero inteiro:\n");
     scanf("%d", &N);
-    printf("O somatório de %d é %d", N, somatorio_N(N));
+    printf("O somatorio de %d Ã© %d", N, somatorio_N(N));
 }
+
