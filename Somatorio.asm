@@ -54,7 +54,7 @@ retorno_imprimir_numeros:
 	jr $ra	#Apenas pula para endereço salvo de retorno em $ra
 
 imprimir_numeros:
-	bltz $t0, retorno_imprimir_numeros #Se t0 for menor que 0, pule para essa função
+	bltz $t0, retorno_imprimir_numeros #"Branch low then zero" Se t0 for menor que 0, pule para essa função
 	li $v0, 1	#grava em v0 o codigo referente a impressão de um inteiro
 	move $a0, $t0	#move de t0 para a0 pois o sistema so lê do a0
 	syscall		#Chama o sistema
