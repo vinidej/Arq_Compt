@@ -1,6 +1,3 @@
-#1) O programa implementa o cálculo do somatório de um número N e ao final imprime todos os números de N até 0. 
-#É simples mas contém desvio condicional, repetição, funções, recursividade e sequencial. 5 dos 6 pedidos no trabalho.
-
 .text 
 .globl main #Defino que o main é um escopo global
 
@@ -63,15 +60,3 @@ imprimir_numeros:
 	syscall		#imprime o \n
 	addi $t0, $t0, -1	#Soma o valor em t0 com -1 para imprimir o proximo
 	j imprimir_numeros #Pula para inicio da função novamente. Note que não precisa de link pois não preciso guardar nada da ultima iteração
-	
-	
-#2) O programa já era bem simples antes no C, em Assembly Mips só notei a otimização de que a linguagem ta conversando com a máquina
-#mais direto do que a linguagem C, então é mais rápido. Mas fora isso eu não notei muita coisa pq o programa já é naturalmente bem simples
-
-#Algo interessante de se notar foi que um laço for, e uma função recursiva são basicamente a mesma coisa com o diferencial de que
-#a recursiva salva as informações que ela precisa na pilha, como endereço do retorno e valor naquele momento.
-#O for faz a mesma coisa, mas não salva nada da ultima iteração. Algo besta mas que só notei agora no assembly
-
-#Curiosidade: Enquanto fazia, o sistema imprimia na saída alguns valores "loucos" e após sair do Main voltava para o somatorio
-#Foi então que eu percebi que faltava o encerramento do programa, o que não é necessário em C a linguagem que foi traduzida
-#Uma pequena curiosidade de uma experiência simples mas para um programador inciante em assembly achei interessante.
